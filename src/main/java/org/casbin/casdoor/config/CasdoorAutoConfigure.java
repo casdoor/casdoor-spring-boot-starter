@@ -1,9 +1,8 @@
 package org.casbin.casdoor.config;
 
-import org.casbin.casdoor.Casdoor;
-import org.casbin.casdoor.CasdoorException;
+import org.casbin.casdoor.service.CasdoorAuthService;
+import org.casbin.casdoor.service.CasdoorUserService;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -17,8 +16,13 @@ public class CasdoorAutoConfigure {
 
     @Bean
     @ConditionalOnMissingBean
-    @ConditionalOnProperty(name = "casdoor.endpoint")
-    Casdoor starterService (CasdoorConfiguration properties) throws CasdoorException {
-        return new Casdoor(properties.getEndpoint());
+    CasdoorUserService getCasdoorUserService (CasdoorConfiguration config) {
+        return new CasdoorUserService(config);
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    CasdoorAuthService getCasdoorAuthService (CasdoorConfiguration config) {
+        return new CasdoorAuthService(config);
     }
 }

@@ -1,19 +1,13 @@
 package org.casbin.casdoor.config;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 /**
  * @author tangyang9464
  */
+@EqualsAndHashCode(callSuper = true)
+@Data
 @ConfigurationProperties(prefix = "casdoor")
-public class CasdoorConfiguration {
-    private String endpoint;
-
-    public void setEndpoint(String endpoint) {
-        this.endpoint = endpoint;
-    }
-
-    public String getEndpoint() {
-        return endpoint;
-    }
-}
+public class CasdoorConfiguration extends CasdoorConfig{}

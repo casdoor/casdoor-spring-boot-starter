@@ -1,5 +1,8 @@
 package org.casbin.casdoor;
 
+import org.casbin.casdoor.entity.CasdoorUser;
+import org.casbin.casdoor.service.CasdoorAuthService;
+import org.casbin.casdoor.service.CasdoorUserService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,10 +17,45 @@ import javax.annotation.Resource;
 @TestPropertySource("classpath:test.properties")
 public class CasdoorSpringBootStarterApplicationTest {
     @Resource
-    Casdoor casdoor;
+    CasdoorUserService casdoorUserService;
+
+    @Resource
+    CasdoorAuthService casdoorAuthService;
 
     @Test
-    public void getSystemTime() {
-        Assert.assertNotNull(casdoor);
+    public void testInjection() {
+        Assert.assertNotNull(casdoorAuthService);
+        Assert.assertNotNull(casdoorUserService);
+    }
+
+    @Test
+    public void testGetUser() throws Exception {
+        Assert.assertNotNull(casdoorUserService.getUser("admin"));
+    }
+
+    @Test
+    public void testGetUsers() throws Exception {
+        Assert.assertNotNull(casdoorUserService.getUsers());
+    }
+
+    @Test
+    public void testAddUser() throws Exception {
+        CasdoorUser user = casdoorUserService.getUser("admin");
+        user.setName("testAdmin");
+        user.setId("qwertyuio");
+        Assert.assertTrue(casdoorUserService.addUser(user));
+    }
+
+    @Test
+    public void testUpdateUser() throws Exception {
+        CasdoorUser user = casdoorUserService.getUser("testAdmin");
+        user.setDisplayName("testUpdateAdmin");
+        Assert.assertTrue(casdoorUserService.updateUser(user));
+    }
+
+    @Test
+    public void testDeleteUser() throws Exception {
+        CasdoorUser user = casdoorUserService.getUser("testAdmin");
+        Assert.assertTrue(casdoorUserService.deleteUser(user));
     }
 }
