@@ -43,19 +43,19 @@ public class CasdoorSpringBootStarterApplicationTest {
         CasdoorUser user = casdoorUserService.getUser("admin");
         user.setName("testAdmin");
         user.setId("qwertyuio");
-        Assert.assertTrue(casdoorUserService.addUser(user));
+        Assert.assertEquals("Affected", casdoorUserService.addUser(user).getData());
     }
 
     @Test
     public void testUpdateUser() throws Exception {
         CasdoorUser user = casdoorUserService.getUser("testAdmin");
         user.setDisplayName("testUpdateAdmin");
-        Assert.assertTrue(casdoorUserService.updateUser(user));
+        Assert.assertEquals("Affected", casdoorUserService.updateUser(user).getData());
     }
 
     @Test
     public void testDeleteUser() throws Exception {
         CasdoorUser user = casdoorUserService.getUser("testAdmin");
-        Assert.assertTrue(casdoorUserService.deleteUser(user));
+        Assert.assertEquals("Affected", casdoorUserService.deleteUser(user).getData());
     }
 }
