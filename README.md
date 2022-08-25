@@ -58,7 +58,7 @@ Initialization requires 6 parameters, which are all string type.
 | endpoint         | Yes  | Casdoor Server Url, such as `http://localhost:8000` |
 | clientId         | Yes  | Application.client_id                               |
 | clientSecret     | Yes  | Application.client_secret                           |
-| jwtPublicKey     | Yes  | The public key for the Casdoor application's cert   |
+| certificate      | Yes  | The public key for the Casdoor application's cert   |
 | organizationName | Yes  | Application.organization                            |
 | applicationName  | No   | Application.name                                    |
 
@@ -70,7 +70,7 @@ For properties:
 casdoor.endpoint = http://localhost:8000
 casdoor.clientId = <client-id>
 casdoor.clientSecret = <client-secret>
-casdoor.jwtPublicKey = <jwt-public-key>
+casdoor.certificate = <jwt-public-key>
 casdoor.organizationName = built-in
 casdoor.applicationName = app-built-in
 ```
@@ -82,7 +82,7 @@ casdoor:
   endpoint: http://localhost:8000
   client-id: <client-id>
   client-secret: <client-secret>
-  jwt-public-key: <jwt-public-key>
+  certificate: <jwt-public-key>
   organization-name: built-in
   application-name: app-built-in
 ```
