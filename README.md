@@ -7,7 +7,7 @@
 [![Javadocs](https://www.javadoc.io/badge/org.casbin/casdoor-spring-boot-starter.svg)](https://www.javadoc.io/doc/org.casbin/casdoor-spring-boot-starter)
 [![Maven Central](https://img.shields.io/maven-central/v/org.casbin/casdoor-spring-boot-starter.svg)](https://mvnrepository.com/artifact/org.casbin/casdoor-spring-boot-starter/latest)
 [![Release](https://img.shields.io/github/release/casdoor/casdoor-spring-boot-starter.svg)](https://github.com/casdoor/casdoor-spring-boot-starter/releases/latest)
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/casbin/lobby)
+[![Discord](https://img.shields.io/discord/1022748306096537660?logo=discord&label=discord&color=5865F2)](https://discord.gg/5rPsrAzK7S)
 
 Casdoor SpringBoot Starter is designed to help you easily integrate [Casdoor](https://github.com/casbin/casdoor) into
 your Spring Boot project.
