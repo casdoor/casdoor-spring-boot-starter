@@ -12,7 +12,7 @@
 
     <groupId>org.casbin</groupId>
     <artifactId>casdoor-spring-boot-starter</artifactId>
-    <version>1.16.0</version>
+    <version>1.0</version>
 
     <name>casdoor-spring-boot-starter</name>
     <description>casdoor springboot starter </description>
