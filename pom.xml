@@ -137,7 +137,7 @@
         <dependency>
             <groupId>org.casbin</groupId>
             <artifactId>casdoor-java-sdk</artifactId>
-            <version>1.16.0</version>
+            <version>1.16.1</version>
         </dependency>
 
         <dependency>
