@@ -126,5 +126,5 @@ You can explore the following projects/docs to learn more about the integration 
 
 - [casdoor-java-sdk](https://github.com/casdoor/casdoor-java-sdk)
 - [casdoor-spring-boot-example](https://github.com/casdoor/casdoor-spring-boot-example)
-- [casdoor-spring-boot-security-example](https://casdoor.org/docs/integration/spring-security)
+- [casdoor-spring-boot-security-example](https://casdoor.org/docs/category/spring-security)
 - [casdoor-spring-boot-shiro-example](https://github.com/casdoor/casdoor-spring-boot-shiro-example)
