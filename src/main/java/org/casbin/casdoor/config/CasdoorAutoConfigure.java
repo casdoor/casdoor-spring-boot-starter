@@ -15,63 +15,62 @@ public class CasdoorAutoConfigure {
 
     @Bean
     @ConditionalOnMissingBean
-    CasdoorUserService getCasdoorUserService(CasdoorConfiguration config) {
-        return new CasdoorUserService(config);
+    UserService getUserService(CasdoorConfiguration config) {
+        return new UserService(config);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    CasdoorAuthService getCasdoorAuthService(CasdoorConfiguration config) {
-        return new CasdoorAuthService(config);
+    AuthService getAuthService(CasdoorConfiguration config) {
+        return new AuthService(config);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    CasdoorSmsService getCasdoorSmsService(CasdoorConfiguration config) {
-        return new CasdoorSmsService(config);
+    SmsService getCasdoorSmsService(CasdoorConfiguration config) {
+        return new SmsService(config);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    CasdoorEmailService getCasdoorEmailService(CasdoorConfiguration config) {
-        return new CasdoorEmailService(config);
+    EmailService getCasdoorEmailService(CasdoorConfiguration config) {
+        return new EmailService(config);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    CasdoorResourceService getCasdoorResourceService(CasdoorConfiguration config) {
-        return new CasdoorResourceService(config);
+   ResourceService getCasdoorResourceService(CasdoorConfiguration config) {
+        return new ResourceService(config);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    CasdoorAccountService getCasdoorAccountService(CasdoorConfiguration config) {
-        return new CasdoorAccountService(config);
+    AccountService getCasdoorAccountService(CasdoorConfiguration config) {
+        return new AccountService(config);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    CasdoorEnforcerService getCasdoorEnforcerService(CasdoorConfiguration config) {
-        return new CasdoorEnforcerService(config);
+    EnforcerService getCasdoorEnforcerService(CasdoorConfiguration config) {
+        return new EnforcerService(config);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    CasdoorPermissionService getCasdoorPermissionService(CasdoorConfiguration config) {
-        return new CasdoorPermissionService(config);
+    PermissionService getCasdoorPermissionService(CasdoorConfiguration config) {
+        return new PermissionService(config);
     }
 
 
     @Bean
     @ConditionalOnMissingBean
-    CasdoorRoleService getCasdoorRoleService(CasdoorConfiguration config) {
-        return new CasdoorRoleService(config);
+    RoleService getCasdoorRoleService(CasdoorConfiguration config) {
+        return new RoleService(config);
     }
 
     @Bean
     @ConditionalOnMissingBean
-    CasdoorTokenService getCasdoorTokenService(CasdoorConfiguration config) {
-        return new CasdoorTokenService(config);
+    TokenService getCasdoorTokenService(CasdoorConfiguration config) {
+        return new TokenService(config);
     }
-
 }

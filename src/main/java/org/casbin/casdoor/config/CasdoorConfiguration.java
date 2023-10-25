@@ -10,4 +10,4 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @EqualsAndHashCode(callSuper = true)
 @Data
 @ConfigurationProperties(prefix = "casdoor")
-public class CasdoorConfiguration extends CasdoorConfig{}
+public class CasdoorConfiguration extends Config{}

@@ -1,8 +1,8 @@
 package org.casbin.casdoor;
 
-import org.casbin.casdoor.entity.CasdoorUser;
-import org.casbin.casdoor.service.CasdoorAuthService;
-import org.casbin.casdoor.service.CasdoorUserService;
+import org.casbin.casdoor.entity.User;
+import org.casbin.casdoor.service.AuthService;
+import org.casbin.casdoor.service.UserService;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,45 +17,45 @@ import javax.annotation.Resource;
 @TestPropertySource("classpath:test.properties")
 public class CasdoorSpringBootStarterApplicationTest {
     @Resource
-    CasdoorUserService casdoorUserService;
+    UserService userService;
 
     @Resource
-    CasdoorAuthService casdoorAuthService;
+    AuthService authService;
 
     @Test
     public void testInjection() {
-        Assert.assertNotNull(casdoorAuthService);
-        Assert.assertNotNull(casdoorUserService);
+        Assert.assertNotNull(authService);
+        Assert.assertNotNull(userService);
     }
 
     @Test
     public void testGetUser() throws Exception {
-        Assert.assertNotNull(casdoorUserService.getUser("admin"));
+        Assert.assertNotNull(userService.getUser("admin"));
     }
 
     @Test
     public void testGetUsers() throws Exception {
-        Assert.assertNotNull(casdoorUserService.getUsers());
+        Assert.assertNotNull(userService.getUsers());
     }
 
     @Test
     public void testAddUser() throws Exception {
-        CasdoorUser user = casdoorUserService.getUser("admin");
-        user.setName("testAdmin");
-        user.setId("qwertyuio");
-        Assert.assertEquals("Affected", casdoorUserService.addUser(user).getData());
+        User user = userService.getUser("admin");
+        user.name = "testAdmin";
+        user.id = "qwertyuio";
+        Assert.assertEquals("Affected", userService.addUser(user).getData());
     }
 
     @Test
     public void testUpdateUser() throws Exception {
-        CasdoorUser user = casdoorUserService.getUser("testAdmin");
-        user.setDisplayName("testUpdateAdmin");
-        Assert.assertEquals("Affected", casdoorUserService.updateUser(user).getData());
+        User user = userService.getUser("testAdmin");
+        user.displayName = "testUpdateAdmin";
+        Assert.assertEquals("Affected", userService.updateUser(user).getData());
     }
 
     @Test
     public void testDeleteUser() throws Exception {
-        CasdoorUser user = casdoorUserService.getUser("testAdmin");
-        Assert.assertEquals("Affected", casdoorUserService.deleteUser(user).getData());
+        User user = userService.getUser("testAdmin");
+        Assert.assertEquals("Affected", userService.deleteUser(user).getData());
     }
 }
