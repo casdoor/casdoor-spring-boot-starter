@@ -1,1 +1,2 @@
-org.casbin.casdoor.config.CasdoorAutoConfigure
+org.casbin.casdoor.config.CasdoorAutoConfiguration
+org.casbin.casdoor.config.CasdoorSecurityAutoConfiguration

@@ -25,7 +25,7 @@
     {
       "owner": "admin",
       "name": "app-spring-boot-starter-ci",
-      "displayName": "app-vue-python-example",
+      "displayName": "Casdoor Spring Boot Starter CI",
       "category": "Default",
       "type": "All",
       "organization": "built-in",
@@ -93,7 +93,10 @@
         "refresh_token"
       ],
       "scopes": [],
-      "redirectUris": [],
+      "redirectUris": [
+        "http://localhost/login/oauth2/code/casdoor",
+        "http://localhost:\\d+/login/oauth2/code/casdoor"
+      ],
       "tags": [],
       "tokenFields": [],
       "expireInHours": 168,
@@ -148,6 +151,20 @@
       "method": "Normal",
       "domain": "http://localhost:8000",
       "pathPrefix": "casdoor"
+    }
+  ],
+  "roles": [
+    {
+      "owner": "built-in",
+      "name": "starter-ci-role",
+      "displayName": "Starter CI Role",
+      "users": [
+        "built-in/admin"
+      ],
+      "groups": [],
+      "roles": [],
+      "domains": [],
+      "isEnabled": true
     }
   ]
 }

@@ -1,2 +1,2 @@
-org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-org.casbin.casdoor.config.CasdoorAutoConfigure
+org.springframework.context.ApplicationListener=\
+org.casbin.casdoor.config.CasdoorSecurityPropertiesListener

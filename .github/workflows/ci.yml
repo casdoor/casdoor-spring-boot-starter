@@ -1,0 +1,92 @@
+name: CI
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Spring Boot ${{ matrix.spring-boot }}, Java ${{ matrix.java }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # the oldest supported Spring Boot, which the published jar is built with
+          - spring-boot: 3.0.13
+            java: 17
+          - spring-boot: 3.5.16
+            java: 21
+          - spring-boot: 4.0.8
+            java: 21
+          - spring-boot: 4.1.1
+            java: 25
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: ${{ matrix.java }}
+          cache: maven
+
+      # the *IT tests run against a real Casdoor server with the data in .ci/casdoor/init_data.json
+      - name: Start Casdoor
+        run: |
+          docker run -d --name casdoor \
+            -p 8000:8000 \
+            -e driverName=sqlite \
+            -e dataSourceName='file:casdoor.db?cache=shared' \
+            -e initDataFile=/init_data.json \
+            -v "$PWD/.ci/casdoor/init_data.json:/init_data.json:ro" \
+            casbin/casdoor-all-in-one
+
+          for i in {1..60}; do
+            if curl -fsS http://localhost:8000/api/get-application?id=admin/app-spring-boot-starter-ci >/dev/null; then
+              exit 0
+            fi
+            sleep 2
+          done
+
+          docker logs casdoor
+          exit 1
+
+      - name: Test
+        run: mvn -B -ntp verify -Dspring-boot.version=${{ matrix.spring-boot }}
+
+      # what publish.yml builds, to find Javadoc errors before releasing
+      - name: Build the release artifacts
+        if: matrix.spring-boot == '3.0.13'
+        run: mvn -B -ntp package -P release -DskipTests -Dgpg.skip
+
+      - name: Dump Casdoor logs
+        if: failure()
+        run: docker logs casdoor
+
+  # tag and release the next version on GitHub, the tag triggers publish.yml
+  # to publish the package to Maven Central
+  release:
+    needs: test
+    if: github.repository == 'casdoor/casdoor-spring-boot-starter' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Semantic Release
+        run: npx semantic-release@24
+        env:
+          # a personal access token, so that the tag it pushes triggers publish.yml
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}

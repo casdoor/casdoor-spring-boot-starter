@@ -1,0 +1,44 @@
+{
+  "properties": [
+    {
+      "name": "casdoor.endpoint",
+      "type": "java.lang.String",
+      "description": "URL of the Casdoor server, such as http://localhost:8000. Casdoor is only configured when it is set."
+    },
+    {
+      "name": "casdoor.client-id",
+      "type": "java.lang.String",
+      "description": "Client ID of the Casdoor application."
+    },
+    {
+      "name": "casdoor.client-secret",
+      "type": "java.lang.String",
+      "description": "Client secret of the Casdoor application."
+    },
+    {
+      "name": "casdoor.certificate",
+      "type": "java.lang.String",
+      "description": "Public certificate (PEM) of the cert the Casdoor application signs its tokens with, used by AuthService.parseJwtToken()."
+    },
+    {
+      "name": "casdoor.organization-name",
+      "type": "java.lang.String",
+      "description": "Name of the Casdoor organization."
+    },
+    {
+      "name": "casdoor.application-name",
+      "type": "java.lang.String",
+      "description": "Name of the Casdoor application."
+    },
+    {
+      "name": "casdoor.custom-headers",
+      "type": "java.util.Map<java.lang.String,java.lang.String>",
+      "description": "HTTP headers added to all the API requests, e.g. Accept-Language."
+    },
+    {
+      "name": "casdoor.access-token",
+      "type": "java.lang.String",
+      "description": "Not meant to be set in the properties: use CasdoorConfiguration.withAccessToken() to call the APIs as a user."
+    }
+  ]
+}
