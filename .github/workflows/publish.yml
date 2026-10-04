@@ -27,7 +27,7 @@ jobs:
         run: mvn -B -ntp org.codehaus.mojo:versions-maven-plugin:2.22.0:set -DnewVersion="${GITHUB_REF_NAME#v}" -DgenerateBackupPoms=false
 
       - name: Publish
-        run: mvn -B -ntp deploy -P release -DskipTests
+        run: mvn -B -ntp deploy -P release -DskipTests -DskipITs
         env:
           # the user token of the Central Portal (https://central.sonatype.com)
           MAVEN_USERNAME: ${{ secrets.OSSRH_JIRA_USERNAME }}
