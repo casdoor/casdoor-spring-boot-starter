@@ -1,130 +1,177 @@
-# Casdoor SpringBoot Starter
+# Casdoor Spring Boot Starter
 
-[![build](https://github.com/casdoor/casdoor-spring-boot-starter/actions/workflows/maven-ci.yml/badge.svg)](https://github.com/casdoor/casdoor-spring-boot-starter/actions/workflows/maven-ci.yml)
-[![License](https://img.shields.io/github/license/casdoor/casdoor-spring-boot-starter.svg?style=flat-square&color=blue)](http://www.apache.org/licenses/LICENSE-2.0.txt)
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
-[![SpringBootVersion](https://img.shields.io/badge/SpringBoot-2.5.2-heightgreen.svg?style=flat-square)](https://spring.io/projects/spring-boot)
-[![Javadocs](https://www.javadoc.io/badge/org.casbin/casdoor-spring-boot-starter.svg)](https://www.javadoc.io/doc/org.casbin/casdoor-spring-boot-starter)
-[![Maven Central](https://img.shields.io/maven-central/v/org.casbin/casdoor-spring-boot-starter.svg)](https://mvnrepository.com/artifact/org.casbin/casdoor-spring-boot-starter/latest)
-[![Release](https://img.shields.io/github/release/casdoor/casdoor-spring-boot-starter.svg)](https://github.com/casdoor/casdoor-spring-boot-starter/releases/latest)
-[![Discord](https://img.shields.io/discord/1022748306096537660?logo=discord&label=discord&color=5865F2)](https://discord.gg/5rPsrAzK7S)
+<p align="center">
+  <a href="#badge">
+    <img alt="semantic-release" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
+  </a>
+  <a href="https://github.com/casdoor/casdoor-spring-boot-starter/actions/workflows/maven-ci.yml">
+    <img alt="build" src="https://github.com/casdoor/casdoor-spring-boot-starter/actions/workflows/maven-ci.yml/badge.svg">
+  </a>
+  <a href="https://github.com/casdoor/casdoor-spring-boot-starter/releases/latest">
+    <img alt="Release" src="https://img.shields.io/github/release/casdoor/casdoor-spring-boot-starter.svg">
+  </a>
+  <a href="https://mvnrepository.com/artifact/org.casbin/casdoor-spring-boot-starter/latest">
+    <img alt="Maven Central" src="https://img.shields.io/maven-central/v/org.casbin/casdoor-spring-boot-starter.svg">
+  </a>
+  <a href="https://www.javadoc.io/doc/org.casbin/casdoor-spring-boot-starter">
+    <img alt="Javadocs" src="https://www.javadoc.io/badge/org.casbin/casdoor-spring-boot-starter.svg">
+  </a>
+</p>
 
-Casdoor SpringBoot Starter is designed to help you easily integrate [Casdoor](https://github.com/casbin/casdoor) into
-your Spring Boot project.
+<p align="center">
+  <a href="http://www.apache.org/licenses/LICENSE-2.0.txt">
+    <img alt="License" src="https://img.shields.io/github/license/casdoor/casdoor-spring-boot-starter.svg?style=flat-square&color=blue">
+  </a>
+  <a href="https://github.com/casdoor/casdoor-spring-boot-starter/issues">
+    <img alt="GitHub issues" src="https://img.shields.io/github/issues/casdoor/casdoor-spring-boot-starter?style=flat-square">
+  </a>
+  <a href="CODE_OF_CONDUCT.md">
+    <img alt="Contributor Covenant" src="https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg?style=flat-square">
+  </a>
+  <a href="https://discord.gg/5rPsrAzK7S">
+    <img alt="Casdoor" src="https://img.shields.io/discord/1022748306096537660?style=flat-square&logo=discord&label=discord&color=5865F2">
+  </a>
+</p>
 
-## What you need
+Casdoor Spring Boot Starter integrates [Casdoor](https://casdoor.ai/) into your Spring Boot application. It configures [casdoor-java-sdk](https://github.com/casdoor/casdoor-java-sdk) from your application properties and registers all its services as Spring beans, so you can inject `AuthService`, `UserService`, `RoleService`, ... anywhere.
 
-The Casdoor should be deployed.
+The services have the same features as [casdoor-go-sdk](https://github.com/casdoor/casdoor-go-sdk), see the [casdoor-java-sdk README](https://github.com/casdoor/casdoor-java-sdk#readme) for all the APIs.
 
-You can refer to the Casdoor official documentation for the [Server Installation](/docs/basic/server-installation).
+## 📦 Installation
 
-After a successful deployment, you need to ensure:
+Maven:
 
-- The Casdoor server is successfully running on **http://localhost:8000**.
-- Open your favorite browser and visit **http://localhost:7001**, you will see the login page of Casdoor.
-- Input `admin` and `123` to test login functionality is working fine.
-
-
-## Quickstart
-
-### Include the dependency
-
-Add ```casdoor-spring-boot-starter``` to the Spring Boot project.
-
-For Apache Maven:
-
-```Maven
-<!-- https://mvnrepository.com/artifact/org.casbin/casdoor-spring-boot-starter -->
+```xml
 <dependency>
     <groupId>org.casbin</groupId>
     <artifactId>casdoor-spring-boot-starter</artifactId>
-    <version>1.x.y</version>
+    <version>${casdoor-spring-boot-starter.version}</version>
 </dependency>
 ```
 
-For Gradle:
+Gradle:
 
-```gradle
-// https://mvnrepository.com/artifact/org.casbin/casdoor-spring-boot-starter
-implementation group: 'org.casbin', name: 'casdoor-spring-boot-starter', version: '1.x.y'
+```groovy
+implementation 'org.casbin:casdoor-spring-boot-starter:<version>'
 ```
 
-### Configure your properties
+The latest version is shown by the Maven Central badge above.
 
-Initialization requires 6 parameters, which are all string type.
+## ⚙️ Configuration
 
-| Name (in order)  | Must | Description                                         |
-|------------------|------|-----------------------------------------------------|
-| endpoint         | Yes  | Casdoor Server Url, such as `http://localhost:8000` |
-| clientId         | Yes  | Application.client_id                               |
-| clientSecret     | Yes  | Application.client_secret                           |
-| certificate      | Yes  | The public key for the Casdoor application's cert   |
-| organizationName | Yes  | Application.organization                            |
-| applicationName  | No   | Application.name                                    |
+| Property                  | Required | Description                                                                 |
+|---------------------------|----------|-----------------------------------------------------------------------------|
+| casdoor.endpoint          | Yes      | Casdoor server URL, such as `http://localhost:8000`                         |
+| casdoor.client-id         | Yes      | Client ID of the Casdoor application                                        |
+| casdoor.client-secret     | Yes      | Client secret of the Casdoor application                                    |
+| casdoor.certificate       | Yes      | x509 certificate (PEM) of the application's cert, used to verify JWT tokens |
+| casdoor.organization-name | Yes      | Name of the Casdoor organization                                            |
+| casdoor.application-name  | Yes      | Name of the Casdoor application                                             |
+| casdoor.custom-headers.*  | No       | HTTP headers added to all the API requests, e.g. `Accept-Language`          |
 
-You can use Java properties or YAML files to init as below.
-
-For properties:
-
-```properties
-casdoor.endpoint = http://localhost:8000
-casdoor.clientId = <client-id>
-casdoor.clientSecret = <client-secret>
-casdoor.certificate = <jwt-public-key>
-casdoor.organizationName = built-in
-casdoor.applicationName = app-built-in
-```
-
-For yaml:
+`application.yml`:
 
 ```yaml
 casdoor:
   endpoint: http://localhost:8000
   client-id: <client-id>
   client-secret: <client-secret>
-  certificate: <jwt-public-key>
-  organization-name: built-in
-  application-name: app-built-in
+  certificate: |
+    -----BEGIN CERTIFICATE-----
+    ...
+    -----END CERTIFICATE-----
+  organization-name: my-organization
+  application-name: my-application
+  custom-headers:
+    Accept-Language: de
 ```
 
-### Get the Service and use
+`application.properties`:
 
-Now provide 5 services: `CasdoorAuthService`, `CasdoorUserService`, `CasdoorEmailService`, `CasdoorSmsService` and `CasdoorResourceService`.
+```properties
+casdoor.endpoint = http://localhost:8000
+casdoor.client-id = <client-id>
+casdoor.client-secret = <client-secret>
+casdoor.certificate = <certificate>
+casdoor.organization-name = my-organization
+casdoor.application-name = my-application
+```
 
-You can create them as below in SpringBoot project.
+All the values are on the application's edit page in Casdoor. The certificate is the public certificate of the cert the application uses (Certs page → the cert → "Certificate").
+
+## 🚀 Usage
+
+Inject the services you need:
 
 ```java
 @Resource
-private CasdoorAuthService casdoorAuthService;
+private AuthService authService;
+
+@Resource
+private UserService userService;
 ```
 
-Examples of APIs are shown below.
+### Sign the User In
 
-- CasdoorAuthService
-  - `String token = casdoorAuthService.getOAuthToken(code, "app-built-in");`
-  - `CasdoorUser casdoorUser = casdoorAuthService.parseJwtToken(token);`
-- CasdoorUserService
-  - `CasdoorUser casdoorUser = casdoorUserService.getUser("admin");`
-  - `CasdoorUser casdoorUser = casdoorUserService.getUserByEmail("admin@example.com");`
-  - `CasdoorUser[] casdoorUsers = casdoorUserService.getUsers();`
-  - `CasdoorUser[] casdoorUsers = casdoorUserService.getSortedUsers("created_time", 5);`
-  - `int count = casdoorUserService.getUserCount("0");`
-  - `CasdoorResponse response = casdoorUserService.addUser(user);`
-  - `CasdoorResponse response = casdoorUserService.updateUser(user);`
-  - `CasdoorResponse response = casdoorUserService.deleteUser(user);`
-- CasdoorEmailService
-  - `CasdoorResponse response = casdoorEmailService.sendEmail(title, content, sender, receiver);`
-- CasdoorSmsService
-  - `CasdoorResponse response = casdoorSmsService.sendSms(randomCode(), receiver);`
-- CasdoorResourceService
-  - `CasdoorResponse response = casdoorResourceService.uploadResource(user, tag, parent, fullFilePath, file);`
-  - `CasdoorResponse response = casdoorResourceService.deleteResource(file.getName());`
+```java
+// 1. Redirect the user to Casdoor
+String url = authService.getSigninUrl("http://localhost:8080/callback", state);
 
-## What's more
+// 2. In the callback, exchange the code for the access token and verify it
+String accessToken = authService.getOAuthToken(code, state);
+User user = authService.parseJwtToken(accessToken);
+```
 
-You can explore the following projects/docs to learn more about the integration of Java with Casdoor.
+### Call the APIs
+
+```java
+User alice = userService.getUser("alice");
+List<User> users = userService.getUsers();
+roleService.addRole(new Role(null, "admin", createdTime, "Administrator", ""));
+boolean allowed = enforcerService.enforce("my-organization/read-data", "", "", "", "",
+        new Object[]{"my-organization/alice", "data1", "read"});
+```
+
+The services call the APIs as the application (client ID and secret). To call them as the signed-in user, with the user's own permissions, create a service with the user's access token:
+
+```java
+@Resource
+private CasdoorConfiguration casdoorConfiguration;
+
+User account = new UserService(casdoorConfiguration.withAccessToken(accessToken)).getAccount();
+```
+
+### Available Services
+
+`AccountService`, `AdapterService`, `ApplicationService`, `AuthService`, `CertService`, `EmailService`, `EnforcerService`, `GroupService`, `InvitationService`, `LdapService`, `MfaService`, `ModelService`, `NotificationService`, `OrderService`, `OrganizationService`, `PaymentService`, `PermissionService`, `PlanService`, `PolicyService`, `PricingService`, `ProductService`, `ProviderService`, `RecordService`, `ResourceService`, `RoleService`, `SessionService`, `SmsService`, `SubscriptionService`, `SyncerService`, `TokenService`, `TransactionService`, `UserService` and `WebhookService`.
+
+Each bean is `@ConditionalOnMissingBean`, so you can replace any of them with your own.
+
+## 🛠 Development
+
+The tests run against a real Casdoor server. CI starts one with Docker and the data in [.ci/casdoor/init_data.json](.ci/casdoor/init_data.json):
+
+```bash
+docker run -d --name casdoor -p 8000:8000 \
+  -e driverName=sqlite \
+  -e dataSourceName='file:casdoor.db?cache=shared' \
+  -e initDataFile=/init_data.json \
+  -v "$PWD/.ci/casdoor/init_data.json:/init_data.json:ro" \
+  casbin/casdoor-all-in-one
+
+mvn test
+```
+
+Releases are published to Maven Central automatically by semantic-release when commits are pushed to `master`.
+
+## 📖 More
 
 - [casdoor-java-sdk](https://github.com/casdoor/casdoor-java-sdk)
 - [casdoor-spring-boot-example](https://github.com/casdoor/casdoor-spring-boot-example)
-- [casdoor-spring-boot-security-example](https://casdoor.ai/docs/category/spring-security/)
 - [casdoor-spring-boot-shiro-example](https://github.com/casdoor/casdoor-spring-boot-shiro-example)
+- [Spring Security integration](https://casdoor.ai/docs/category/spring-security/)
+- [Casdoor Documentation](https://casdoor.ai/docs/overview)
+
+## 📄 License
+
+This project is licensed under the Apache License 2.0.
