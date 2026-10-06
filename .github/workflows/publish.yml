@@ -26,8 +26,12 @@ jobs:
       - name: Set the version from the tag
         run: mvn -B -ntp org.codehaus.mojo:versions-maven-plugin:2.22.0:set -DnewVersion="${GITHUB_REF_NAME#v}" -DgenerateBackupPoms=false
 
+      # central-publishing-maven-plugin 0.11.0 builds a bundle that Maven Central rejects with the newer Maven of the runner
+      - name: Pin Maven
+        run: mvn -B -ntp wrapper:wrapper -Dmaven=3.9.16
+
       - name: Publish
-        run: mvn -B -ntp deploy -P release -DskipTests -DskipITs
+        run: ./mvnw -B -ntp deploy -P release -DskipTests -DskipITs
         env:
           # the user token of the Central Portal (https://central.sonatype.com)
           MAVEN_USERNAME: ${{ secrets.OSSRH_JIRA_USERNAME }}
